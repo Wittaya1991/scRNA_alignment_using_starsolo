@@ -1,0 +1,32 @@
+Step2: Align sequencing reads against the reference genome using starsolo
+
+#!/bin/bash
+#SBATCH --job-name="star_alignment_umis"
+#SBATCH --mail-user=wittaya.hpc.cluster@gmail.com
+#SBATCH --mail-type=ALL
+#SBATCH --ntasks=1
+#SBATHC --ntasks-per-node=1
+#SBATCH --cpus-per-task=4
+#SBATCH --mem-per-cpu=8G
+#SBATCH --nodes=1
+#SBATCH --time=3:00:00
+#SBATCH --output=star_alignment_umis.out
+
+
+STAR --runThreadN 4 
+--genomeDir ~/path/to/indices_human 
+--readFilesIn ~/path/to/sample/5k_pbmc_v3_S1_L001_R2_001.fastq.gz ~/path/to/sample/5k_pbmc_v3_S1_L001_R1_001.fastq.gz 
+--readFilesCommand zcat 
+--soloType Droplet 
+--soloCBwhitelist None ##supply the whitelist here (.csv) 
+--soloBarcodeReadLength 28 
+--soloCBstart 1 
+--soloCBlen 16 
+--soloUMIstart 17 
+--soloUMIlen 22
+--soloFeatures GeneFull ###path to the gene annotation file
+--soloOutFileNames 2_GeneFull ###any name
+
+
+
+######end
