@@ -1,0 +1,9 @@
+######## ScRNA analysis pipeline without using cellranger
+######## This pipeline utilises starsolo which is a built-in algorithm in cellranger
+######## This pipeline is suitable with scRNA analysis that the cell/nuclei capture is not processed by 10x Genomics GEMs
+
+
+######## Important information
+#### 1. User need to supply a list of cellbarcodes (whitelist)
+#### 2. User should have a clear understanding of cellbarcode and UMI sequences because the number of cellbarcode and UMI sequences will have to be supplied manually
+
