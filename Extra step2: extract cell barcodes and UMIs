@@ -1,0 +1,28 @@
+Extra step2: extract cellbarcodes & UMIs
+
+#!/bin/bash
+
+
+#SBATCH --job-name="extract_cb_umi"
+#SBATCH --mail-user=wittaya.hpc.cluster@gmail.com
+#SBATCH --mail-type=ALL
+#SBATCH --ntasks=1
+#SBATHC --ntasks-per-node=1
+#SBATCH --cpus-per-task=4
+#SBATCH --mem-per-cpu=4G
+#SBATCH --nodes=1
+#SBATCH --time=3:00:00
+#SBATCH --output=extract_cb_umi.out
+
+
+date
+
+umi_tools extract --bc-pattern=CCCCCCCCCCCCCCCCNNNNNNNNNN \
+                  --stdin hgmm_100_R1.fastq.gz \
+                  --stdout hgmm_100_R1_extracted.fastq.gz \
+                  --read2-in hgmm_100_R2.fastq.gz \
+                  --read2-out=hgmm_100_R2_extracted.fastq.gz \
+                  --whitelist=whitelist_extract.txt
+
+
+######end
