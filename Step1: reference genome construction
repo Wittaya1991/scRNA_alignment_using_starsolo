@@ -7,3 +7,40 @@
 #### 1. User need to supply a list of cellbarcodes (whitelist)
 #### 2. User should have a clear understanding of cellbarcode and UMI sequences because the number of cellbarcode and UMI sequences will have to be supplied manually
 
+Step1: construct reference genome for cellranger
+
+##download reference genome from Ensembl
+##we will need at least 2 files i) a primary assembly.fa and ii) .gtf file
+
+#!/bin/bash
+#SBATCH --job-name="star_indices_mouse"
+#SBATCH --mail-user=wittaya.hpc.cluster@gmail.com
+#SBATCH --mail-type=ALL
+#SBATCH --ntasks=1
+#SBATHC --ntasks-per-node=1
+#SBATCH --cpus-per-task=4
+#SBATCH --mem-per-cpu=30G
+#SBATCH --nodes=1
+#SBATCH --time=05:00:00
+#SBATCH --output=star_indices_2021_12_22.out
+
+date
+
+echo "Running job script"
+
+module load star/2.7.9a
+
+STAR --runThreadN 4 
+--runMode genomeGenerate 
+--genomeDir ~/path/to/indices/ 
+--genomeFastaFiles ~/path/to/dna.primary_assembly.fa 
+--sjdbGTFfile ~/path/to/.gtf
+--sjdbOverhang 99
+
+##99 means short read sequences are about 100 basepair. We set the sjdbOverhang at 100-1 = 99
+
+echo "Building STAR indices is finished. HOORAY!"
+
+
+
+##end
