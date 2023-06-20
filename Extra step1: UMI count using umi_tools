@@ -1,0 +1,26 @@
+Extra step1: UMI count using umi_tools
+
+#!/bin/bash
+
+
+#SBATCH --job-name="final_molecule_count_umis"
+#SBATCH --mail-user=wittaya.hpc.cluster@gmail.com
+#SBATCH --mail-type=ALL
+#SBATCH --ntasks=1
+#SBATHC --ntasks-per-node=1
+#SBATCH --cpus-per-task=4
+#SBATCH --mem-per-cpu=4G
+#SBATCH --nodes=1
+#SBATCH --time=3:00:00
+#SBATCH --output=final_molecule_count_umis.out
+
+
+date
+
+umi_tools count 
+--per-gene 
+--gene-tag=XT 
+--assigned-status-tag=XS 
+--per-cell -I ~/rb32/test_scrna/umi_tools_test/assigned_sorted.bam ####bam output file from alignment step -S ~/path/to/umi_tools_test/counts_2.tsv.gz ###known UMI list
+
+########end
